@@ -27,6 +27,11 @@ class Recipe extends Model
         return $this->belongsTo(Difficulty::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['search'])) {

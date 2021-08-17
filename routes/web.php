@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RegisterController;
@@ -28,6 +29,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
+    Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 

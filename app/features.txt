@@ -1,0 +1,5 @@
+User can browse all recipes
+User can see a recipe detail page
+Recipe can be filter by categories, difficulties, author or by keyword
+User can register an account
+A user can comment on recipes

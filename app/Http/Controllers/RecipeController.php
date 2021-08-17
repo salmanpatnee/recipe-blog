@@ -51,7 +51,10 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        return view('recipes.show', compact('recipe'));
+        return view('recipes.show', [
+            'recipe'    => $recipe,
+            'comments'  => $recipe->comments()->latest()->paginate(30)
+        ]);
     }
 
     /**

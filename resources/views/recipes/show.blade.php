@@ -66,6 +66,13 @@
                     <p>{{ $recipe->body }}</p>
                 </div>
             </div>
+            <section class="col-span-8 col-start-5 mt-10 space-y-6">
+                @include('partials.comment-form')
+                @foreach ($comments as $comment)
+                    <x-comment :comment="$comment" />
+                @endforeach
+                {{ $comments->links() }}
+            </section>
         </article>
     </main>
 </x-layout>
