@@ -23,13 +23,18 @@ Route::get('/recipes/{recipe:slug}', [RecipeController::class, 'show'])->name('r
 Route::middleware(['guest'])->group(function () {
     Route::get('/register', [RegisterController::class, 'create'])->name('register.create');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-    Route::get('/login', [LoginController::class, 'create'])->name('login.create');
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
     Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])->name('comments.store');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/recipes/create', [RecipeController::class, 'create'])->name('admin.posts.create');
+    Route::post('/admin/recipes', [RecipeController::class, 'store'])->name('admin.posts.store');
 });
 
 

@@ -10,6 +10,8 @@ class Recipe extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    
     protected $with = ['category', 'difficulty', 'author'];
 
     public function category()
@@ -76,5 +78,9 @@ class Recipe extends Model
                 $query->where('username', '=', $author);
             });
         }
+    }
+
+    public function getThumbnial(){
+        return isset( $this->thumbnail) ? asset('storage/'. $this->thumbnail) : '/images/default.png';
     }
 }

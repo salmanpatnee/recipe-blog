@@ -23,6 +23,7 @@ class CreateRecipesTable extends Migration
             $table->string('slug');
             $table->text('excerpt');
             $table->text('body');
+            $table->string('thumbnail')->nullable();
             $table->unsignedInteger('prep_time');
             $table->unsignedInteger('cook_time');
             $table->unsignedInteger('serves');

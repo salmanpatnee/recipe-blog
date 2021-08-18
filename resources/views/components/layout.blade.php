@@ -18,7 +18,7 @@
                 @guest
                     <a href="{{ route('register.create') }}" class="text-xs font-bold uppercase">Register</a>
                     |
-                    <a href="{{ route('login.create') }}" class="text-xs font-bold uppercase">Login</a>
+                    <a href="{{ route('login') }}" class="text-xs font-bold uppercase">Login</a>
                 @else
                     <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
 

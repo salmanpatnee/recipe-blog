@@ -13,8 +13,16 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   
+        \App\Models\User::factory()->create([
+            'name' => 'Admin', 
+            'username' => 'admin', 
+            'email' => 'admin@recipes.com', 
+            'password' => 'password'
+        ]);
+        
         $user = \App\Models\User::factory(2)->create();
+        
 
         $categories = ['Dishes', 'Snacks', 'Meal', 'Family', 'Kids'];
 

@@ -29,7 +29,7 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        //
+        return view('recipes.create');
     }
 
     /**
@@ -40,7 +40,24 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = request()->validate([
+            'title'         => 'required|min:3|max:255',
+            'excerpt'       => 'required|min:3|max:255',
+            'body'          => 'required',
+            'slug'          => 'required|unique:recipes,slug',
+            'prep_time'     => 'required|numeric|min:5|max:120',
+            'cook_time'     => 'required|numeric|min:5|max:120',
+            'thumbnail'     => 'required|image',
+            'serves'        => 'required|numeric|min:1|max:5',
+            'category_id'   => 'required|exists:categories,id',
+            'difficulty_id' => 'required|exists:difficulties,id',
+        ]);
+
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails'); 
+
+        auth()->user()->recipes()->create($attributes);
+
+        return redirect(route('recipes.index'));
     }
 
     /**
