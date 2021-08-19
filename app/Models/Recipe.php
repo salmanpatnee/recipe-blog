@@ -80,7 +80,7 @@ class Recipe extends Model
         }
     }
 
-    public function getThumbnial(){
+    public function getThumbnail(){
         return isset( $this->thumbnail) ? asset('storage/'. $this->thumbnail) : '/images/default.png';
     }
 }

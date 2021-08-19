@@ -20,10 +20,31 @@
                     |
                     <a href="{{ route('login') }}" class="text-xs font-bold uppercase">Login</a>
                 @else
-                    <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
 
-                    <form method="POST" action="{{ route('login.destroy') }}"
-                        class="text-xs font-semibold text-blue-500 ml-6">
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-34 flex lg:inline-flex" }>
+                            <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
+                            <x-dropdown-icon class="absolute pointer-events-none" style="right: 12px;" />
+                        </button>
+                        </x-slot-trigger>
+                        <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-1 rounded-xl z-50" style="display: none">
+
+                            @can('admin')
+                                <x-dropdown-link  href="{{route('admin.recipes.index')}}">Dashboard</x-dropdown-link>
+                                <x-dropdown-link :active='request()->routeIs("admin.recipes.create")' href="{{route('admin.recipes.create')}}">Create new recipe</x-dropdown-link>
+                            @endcan
+
+                            <x-dropdown-link  
+                            @click.prevent="document.querySelector('#logout-form').submit()"
+                            href="">Log Out</x-dropdown-link>
+                        </div>
+                </x-dropdown>
+
+                    
+
+                    <form id="logout-form" method="POST" action="{{ route('login.destroy') }}"
+                        class="hidden">
                         @csrf
                         <button type="submit">Log Out</button>
                     </form>
@@ -38,7 +59,7 @@
 
         <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
             <img src="/images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
-            <h5 class="text-3xl">Stay in touch with the latest posts</h5>
+            <h5 class="text-3xl">Stay in touch with the latest recipes</h5>
             <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
 
             <div class="mt-10">

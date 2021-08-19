@@ -6,7 +6,7 @@
         <div class="flex-1 lg:mr-8">
             
             <img 
-                src="{{$recipe->getThumbnial()}}" 
+                src="{{$recipe->getThumbnail()}}" 
                 alt="Blog Post illustration" 
                 class="rounded-xl">
         </div>

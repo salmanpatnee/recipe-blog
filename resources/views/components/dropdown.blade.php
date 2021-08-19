@@ -1,5 +1,5 @@
 <!--  Category -->
-<div x-data="{show:false}" class="w-32">
+<div x-data="{show:false}" class="w-34 relative">
     <div @click="show = !show">
         {{ $trigger }}
     </div>

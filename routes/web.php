@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminRecipeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RecipeController;
@@ -32,9 +33,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/recipes/create', [RecipeController::class, 'create'])->name('admin.posts.create');
-    Route::post('/admin/recipes', [RecipeController::class, 'store'])->name('admin.posts.store');
+Route::middleware(['can:admin'])->group(function () {
+    Route::get('/admin/recipes', [AdminRecipeController::class, 'index'])->name('admin.recipes.index');
+    Route::get('/admin/recipes/create', [AdminRecipeController::class, 'create'])->name('admin.recipes.create');
+    Route::post('/admin/recipes', [AdminRecipeController::class, 'store'])->name('admin.recipes.store');
+    Route::get('/admin/recipes/edit/{recipe}', [AdminRecipeController::class, 'edit'])->name('admin.recipes.edit');
+    Route::patch('/admin/recipes/{recipe}', [AdminRecipeController::class, 'update'])->name('admin.recipes.update');
+    Route::delete('/admin/recipes/{recipe}', [AdminRecipeController::class, 'destroy'])->name('admin.recipes.destroy');
 });
 
 

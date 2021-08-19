@@ -25,6 +25,6 @@
             </div>
         </form>
     @else
-        <p><a class="font-bold" href="{{ route('login.create') }}">Login</a> to participate.</p>
+        <p><a class="font-bold" href="{{ route('login') }}">Login</a> to participate.</p>
     @endauth
 </div>
