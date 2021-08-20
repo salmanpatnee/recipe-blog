@@ -21,30 +21,30 @@
                     <a href="{{ route('login') }}" class="text-xs font-bold uppercase">Login</a>
                 @else
 
-                <x-dropdown>
-                    <x-slot name="trigger">
-                        <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-34 flex lg:inline-flex" }>
-                            <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
-                            <x-dropdown-icon class="absolute pointer-events-none" style="right: 12px;" />
-                        </button>
-                        </x-slot-trigger>
-                        <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-1 rounded-xl z-50" style="display: none">
+                    <x-dropdown>
+                        <x-slot name="trigger">
+                            <button class="py-2 pl-3 pr-9 text-sm font-semibold w-full lg:w-34 flex lg:inline-flex" }>
+                                <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
+                                <x-dropdown-icon class="absolute pointer-events-none" style="right: 12px;" />
+                            </button>
+                            </x-slot-trigger>
+                            <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-1 rounded-xl z-50"
+                                style="display: none">
 
-                            @can('admin')
-                                <x-dropdown-link  href="{{route('admin.recipes.index')}}">Dashboard</x-dropdown-link>
-                                <x-dropdown-link :active='request()->routeIs("admin.recipes.create")' href="{{route('admin.recipes.create')}}">Create new recipe</x-dropdown-link>
-                            @endcan
+                                @can('admin')
+                                    <x-dropdown-link href="{{ route('admin.recipes.index') }}">Dashboard</x-dropdown-link>
+                                    <x-dropdown-link :active='request()->routeIs("admin.recipes.create")'
+                                        href="{{ route('admin.recipes.create') }}">Create new recipe</x-dropdown-link>
+                                @endcan
 
-                            <x-dropdown-link  
-                            @click.prevent="document.querySelector('#logout-form').submit()"
-                            href="">Log Out</x-dropdown-link>
-                        </div>
-                </x-dropdown>
+                                <x-dropdown-link @click.prevent="document.querySelector('#logout-form').submit()" href="">
+                                    Log Out</x-dropdown-link>
+                            </div>
+                    </x-dropdown>
 
-                    
 
-                    <form id="logout-form" method="POST" action="{{ route('login.destroy') }}"
-                        class="hidden">
+
+                    <form id="logout-form" method="POST" action="{{ route('login.destroy') }}" class="hidden">
                         @csrf
                         <button type="submit">Log Out</button>
                     </form>
@@ -65,20 +65,25 @@
             <div class="mt-10">
                 <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
 
-                    <form method="POST" action="#" class="lg:flex text-sm">
+                    <form method="POST" action="/newsletter" class="lg:flex text-sm">
+                        @csrf
                         <div class="lg:py-3 lg:px-5 flex items-center">
                             <label for="email" class="hidden lg:inline-block">
                                 <img src="/images/mailbox-icon.svg" alt="mailbox letter">
                             </label>
+                            <div>
+                                <input id="email" name="email" type="email  " placeholder="Your email address"
+                                    class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none" required>
 
-                            <input id="email" type="text" placeholder="Your email address"
-                                class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
+                            </div>
+
                         </div>
 
                         <button type="submit"
                             class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
                             Subscribe
                         </button>
+                        <x-form.error name="email" />
                     </form>
                 </div>
             </div>
